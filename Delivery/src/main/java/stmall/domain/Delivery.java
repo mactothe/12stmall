@@ -17,9 +17,9 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer orderId;
+    private Long orderId;
 
-    private Integer productId;
+    private Long productId;
 
     private String productName;
 

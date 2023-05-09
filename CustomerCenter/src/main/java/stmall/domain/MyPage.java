@@ -14,10 +14,10 @@ public class MyPage {
     //@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private Integer orderId;
-    private Integer customerId;
+    private Long orderId;
+    private String userId;
     private String productName;
-    private Integer productId;
+    private Long productId;
     private Integer qty;
     private String status;
 }

@@ -28,8 +28,8 @@ public class MyPageViewHandler {
             // view 객체에 이벤트의 Value 를 set 함
             myPage.setOrderId(orderPlaced.getId());
             myPage.setProductId(orderPlaced.getProductId());
-            myPage.setCustomerId(Integer.parseInt(orderPlaced.getCustomerId()));
             myPage.setQty(orderPlaced.getQty());
+            myPage.setUserId(orderPlaced.getUserId());
             // view 레파지 토리에 save
             myPageRepository.save(myPage);
         } catch (Exception e) {

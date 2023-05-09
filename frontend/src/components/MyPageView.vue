@@ -23,7 +23,7 @@
             headers: [
                 { text: "id", value: "id" },
                 { text: "orderId", value: "orderId" },
-                { text: "customerId", value: "customerId" },
+                { text: "userId", value: "userId" },
                 { text: "productName", value: "productName" },
                 { text: "productId", value: "productId" },
                 { text: "qty", value: "qty" },
