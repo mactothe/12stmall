@@ -2,8 +2,8 @@ package stmall.common;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import stmall.CostomerCenterApplication;
+import stmall.CustomerCenterApplication;
 
 @CucumberContextConfiguration
-@SpringBootTest(classes = { CostomerCenterApplication.class })
+@SpringBootTest(classes = { CustomerCenterApplication.class })
 public class CucumberSpingConfiguration {}
