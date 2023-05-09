@@ -26,53 +26,47 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='StockIncreased'"
     )
-    public void wheneverStockIncreased_NotificationInventoryIncreased(
+    public void wheneverStockIncreased_InventoryIncreased(
         @Payload StockIncreased stockIncreased
     ) {
         StockIncreased event = stockIncreased;
         System.out.println(
-            "\n\n##### listener NotificationInventoryIncreased : " +
-            stockIncreased +
-            "\n\n"
+            "\n\n##### listener InventoryIncreased : " + stockIncreased + "\n\n"
         );
 
         // Sample Logic //
-        Order.notificationInventoryIncreased(event);
+        Order.inventoryIncreased(event);
     }
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='DeliveryStarted'"
     )
-    public void wheneverDeliveryStarted_NotificationOrderStatusUpdate(
+    public void wheneverDeliveryStarted_StatusUpdate(
         @Payload DeliveryStarted deliveryStarted
     ) {
         DeliveryStarted event = deliveryStarted;
         System.out.println(
-            "\n\n##### listener NotificationOrderStatusUpdate : " +
-            deliveryStarted +
-            "\n\n"
+            "\n\n##### listener StatusUpdate : " + deliveryStarted + "\n\n"
         );
 
         // Sample Logic //
-        Order.notificationOrderStatusUpdate(event);
+        Order.statusUpdate(event);
     }
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='DeliveryStopped'"
     )
-    public void wheneverDeliveryStopped_NotificationOrderStatusUpdate(
+    public void wheneverDeliveryStopped_StatusUpdate(
         @Payload DeliveryStopped deliveryStopped
     ) {
         DeliveryStopped event = deliveryStopped;
         System.out.println(
-            "\n\n##### listener NotificationOrderStatusUpdate : " +
-            deliveryStopped +
-            "\n\n"
+            "\n\n##### listener StatusUpdate : " + deliveryStopped + "\n\n"
         );
 
         // Sample Logic //
-        Order.notificationOrderStatusUpdate(event);
+        Order.statusUpdate(event);
     }
 }

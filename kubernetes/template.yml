@@ -83,22 +83,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Product
+  name: Inventory
   labels:
-    app: Product
+    app: Inventory
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Product
+      app: Inventory
   template:
     metadata:
       labels:
-        app: Product
+        app: Inventory
     spec:
       containers:
-        - name: Product
-          image: username/Product:latest
+        - name: Inventory
+          image: username/Inventory:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -199,15 +199,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Product
+  name: Inventory
   labels:
-    app: Product
+    app: Inventory
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: Product
+    app: Inventory
 
 
 ---

@@ -10,12 +10,12 @@ import stmall.config.kafka.KafkaProcessor;
 @SpringBootApplication
 @EnableBinding(KafkaProcessor.class)
 @EnableFeignClients
-public class ProductApplication {
+public class InventoryApplication {
 
     public static ApplicationContext applicationContext;
 
     public static void main(String[] args) {
         applicationContext =
-            SpringApplication.run(ProductApplication.class, args);
+            SpringApplication.run(InventoryApplication.class, args);
     }
 }

@@ -10,7 +10,6 @@ import stmall.infra.AbstractEvent;
 public class StockIncreased extends AbstractEvent {
 
     private Long id;
-    private Integer orderId;
     private String productName;
     private Integer stock;
 }

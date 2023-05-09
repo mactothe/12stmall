@@ -50,7 +50,7 @@ services:
       - ./Delivery:/usr/src
       - ./maven-repo:/root/.m2
       
-  Product:
+  Inventory:
     depends_on: 
       - kafka
     image: adoptopenjdk/maven-openjdk11:latest
@@ -61,7 +61,7 @@ services:
       - 8083:8083
     working_dir: /usr/src
     volumes:
-      - ./Product:/usr/src
+      - ./Inventory:/usr/src
       - ./maven-repo:/root/.m2
       
   CustomerCenter:

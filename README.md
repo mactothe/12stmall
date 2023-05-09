@@ -22,7 +22,7 @@ See the README.md files inside the each microservices directory:
 
 - Order
 - Delivery
-- Product
+- Inventory
 - CustomerCenter
 
 
@@ -35,13 +35,13 @@ mvn spring-boot:run
 ## Test by API
 - Order
 ```
- http :8088/orders id="id" userId="userId" productId="productId" qty="qty" address="address" 
+ http :8088/orders id="id" userId="userId" productId="productId" qty="qty" address="address" status="status" 
 ```
 - Delivery
 ```
  http :8088/deliveries id="id" orderId="orderId" productId="productId" productName="productName" qty="qty" status="status" address="address" 
 ```
-- Product
+- Inventory
 ```
  http :8088/inventories id="id" productName="productName" stock="stock" 
 ```

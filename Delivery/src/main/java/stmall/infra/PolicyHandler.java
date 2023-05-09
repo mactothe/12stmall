@@ -42,7 +42,7 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='OrderCanceled'"
     )
-    public void wheneverOrderCanceled_DeliveryStop(
+    public void wheneverOrderCanceled_DeliveryStart(
         @Payload OrderCanceled orderCanceled
     ) {
         OrderCanceled event = orderCanceled;
@@ -51,6 +51,6 @@ public class PolicyHandler {
         );
 
         // Sample Logic //
-        Delivery.deliveryStop(event);
+        Delivery.deliveryStart(event);
     }
 }

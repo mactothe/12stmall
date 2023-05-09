@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: product
+    name: inventory
 ---
 
 spring:
@@ -27,7 +27,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Product
+          group: Inventory
           destination: stmall
           contentType: application/json
         event-out:
@@ -62,7 +62,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: Product
+          group: Inventory
           destination: stmall
           contentType: application/json
         event-out:

@@ -21,8 +21,6 @@ public class Order {
 
     private Long productId;
 
-    private String productName;
-
     private Integer qty;
 
     private String address;
@@ -35,8 +33,8 @@ public class Order {
         orderPlaced.publishAfterCommit();
     }
 
-    @PostUpdate
-    public void onPostUpdate() {
+    @PreUpdate
+    public void onPreUpdate() {
         OrderCanceled orderCanceled = new OrderCanceled(this);
         orderCanceled.publishAfterCommit();
     }
@@ -48,9 +46,7 @@ public class Order {
         return orderRepository;
     }
 
-    public static void notificationInventoryIncreased(
-        StockIncreased stockIncreased
-    ) {
+    public static void inventoryIncreased(StockIncreased stockIncreased) {
         /** Example 1:  new item 
         Order order = new Order();
         repository().save(order);
@@ -70,21 +66,43 @@ public class Order {
 
     }
 
-    public static void notificationOrderStatusUpdate(
-        DeliveryStarted deliveryStarted
-    ) {
-        repository().findById(deliveryStarted.getOrderId()).ifPresent(order->{
-            order.setStatus(deliveryStarted.getStatus());
+    public static void statusUpdate(DeliveryStarted deliveryStarted) {
+        /** Example 1:  new item 
+        Order order = new Order();
+        repository().save(order);
+
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(deliveryStarted.get???()).ifPresent(order->{
+            
+            order // do something
             repository().save(order);
+
+
          });
+        */
+
     }
 
-    public static void notificationOrderStatusUpdate(
-        DeliveryStopped deliveryStopped
-    ) {
-        repository().findById(deliveryStopped.getOrderId()).ifPresent(order->{
-            order.setStatus(deliveryStopped.getStatus());
+    public static void statusUpdate(DeliveryStopped deliveryStopped) {
+        /** Example 1:  new item 
+        Order order = new Order();
+        repository().save(order);
+
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(deliveryStopped.get???()).ifPresent(order->{
+            
+            order // do something
             repository().save(order);
-        });
+
+
+         });
+        */
+
     }
 }

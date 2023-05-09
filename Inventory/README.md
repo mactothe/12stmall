@@ -1,4 +1,4 @@
-# Product
+# Inventory
 
 ## Running in local development environment
 
@@ -10,8 +10,8 @@ mvn spring-boot:run
 
 ```
 mvn package -B -DskipTests
-docker build -t username/Product:v1 .
-docker run username/Product:v1
+docker build -t username/Inventory:v1 .
+docker run username/Inventory:v1
 ```
 
 ## Push images and running in Kubernetes
@@ -20,15 +20,15 @@ docker run username/Product:v1
 docker login 
 # in case of docker hub, enter your username and password
 
-docker push username/Product:v1
+docker push username/Inventory:v1
 ```
 
 Edit the deployment.yaml under the /kubernetes directory:
 ```
     spec:
       containers:
-        - name: Product
-          image: username/Product:latest   # change this image name
+        - name: Inventory
+          image: username/Inventory:latest   # change this image name
           ports:
             - containerPort: 8080
 
@@ -41,13 +41,13 @@ kubectl apply -f kubernetes/deployment.yaml
 
 See the pod status:
 ```
-kubectl get pods -l app=Product
+kubectl get pods -l app=Inventory
 ```
 
 If you have no problem, you can connect to the service by opening a proxy between your local and the kubernetes by using this command:
 ```
 # new terminal
-kubectl port-forward deploy/Product 8080:8080
+kubectl port-forward deploy/Inventory 8080:8080
 
 # another terminal
 http localhost:8080
@@ -55,7 +55,7 @@ http localhost:8080
 
 If you have any problem on running the pod, you can find the reason by hitting this:
 ```
-kubectl logs -l app=Product
+kubectl logs -l app=Inventory
 ```
 
 Following problems may be occurred:

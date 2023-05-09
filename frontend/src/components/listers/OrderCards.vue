@@ -72,6 +72,7 @@
                 'productId': 0,
                 'qty': 0,
                 'address': '',
+                'status': '',
             }
         },
         methods:{

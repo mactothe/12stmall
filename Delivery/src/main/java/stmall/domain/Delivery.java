@@ -2,7 +2,6 @@ package stmall.domain;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.*;
 import lombok.Data;
 import stmall.DeliveryApplication;
@@ -34,10 +33,7 @@ public class Delivery {
     public void onPostPersist() {
         DeliveryStarted deliveryStarted = new DeliveryStarted(this);
         deliveryStarted.publishAfterCommit();
-    }
 
-    @PostUpdate
-    public void onPostUpdate() {
         DeliveryStopped deliveryStopped = new DeliveryStopped(this);
         deliveryStopped.publishAfterCommit();
     }
@@ -50,22 +46,50 @@ public class Delivery {
     }
 
     public static void deliveryStart(OrderPlaced orderPlaced) {
+        /** Example 1:  new item 
         Delivery delivery = new Delivery();
-        delivery.setAddress(orderPlaced.getAddress());
-        delivery.setStatus("ready");
-        delivery.setProductId(orderPlaced.getProductId());
-        delivery.setProductName(orderPlaced.getProductName());
-        delivery.setQty(orderPlaced.getQty());
-        delivery.setOrderId(orderPlaced.getId());
         repository().save(delivery);
+
+        DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
+        deliveryStarted.publishAfterCommit();
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(orderPlaced.get???()).ifPresent(delivery->{
+            
+            delivery // do something
+            repository().save(delivery);
+
+            DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
+            deliveryStarted.publishAfterCommit();
+
+         });
+        */
+
     }
 
-    public static void deliveryStop(OrderCanceled orderCanceled) {
-        Optional<Delivery> deliveryOptional = repository().findByOrderId(orderCanceled.getId());
-        if (deliveryOptional.isPresent()) {
-            Delivery delivery = deliveryOptional.get();
-            delivery.setStatus("retrieve");
+    public static void deliveryStart(OrderCanceled orderCanceled) {
+        /** Example 1:  new item 
+        Delivery delivery = new Delivery();
+        repository().save(delivery);
+
+        DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
+        deliveryStarted.publishAfterCommit();
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(orderCanceled.get???()).ifPresent(delivery->{
+            
+            delivery // do something
             repository().save(delivery);
-        }
+
+            DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
+            deliveryStarted.publishAfterCommit();
+
+         });
+        */
+
     }
 }
