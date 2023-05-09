@@ -25,7 +25,10 @@ public class Inventory {
     public void onPostPersist() {
         StockDecreased stockDecreased = new StockDecreased(this);
         stockDecreased.publishAfterCommit();
+    }
 
+    @PreUpdate
+    public void onPreUpdate() {
         StockIncreased stockIncreased = new StockIncreased(this);
         stockIncreased.publishAfterCommit();
     }
@@ -38,42 +41,16 @@ public class Inventory {
     }
 
     public static void stockDecrease(DeliveryStarted deliveryStarted) {
-        /** Example 1:  new item 
-        Inventory inventory = new Inventory();
+        Inventory inventory = repository().findById(
+                deliveryStarted.getProductId()).get();
+        inventory.setStock(inventory.getStock() - deliveryStarted.getQty());
         repository().save(inventory);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStarted.get???()).ifPresent(inventory->{
-            
-            inventory // do something
-            repository().save(inventory);
-
-
-         });
-        */
-
     }
 
     public static void stockIncrease(DeliveryStopped deliveryStopped) {
-        /** Example 1:  new item 
-        Inventory inventory = new Inventory();
+        Inventory inventory = repository().findById(
+                deliveryStopped.getProductId()).get();
+        inventory.setStock(inventory.getStock() + deliveryStopped.getQty());
         repository().save(inventory);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStopped.get???()).ifPresent(inventory->{
-            
-            inventory // do something
-            repository().save(inventory);
-
-
-         });
-        */
-
     }
 }
