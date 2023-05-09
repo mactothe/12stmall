@@ -36,8 +36,8 @@ public class Delivery {
         deliveryStarted.publishAfterCommit();
     }
 
-    @PreUpdate
-    public void onPreUpdate() {
+    @PostUpdate
+    public void onPostUpdate() {
         DeliveryStopped deliveryStopped = new DeliveryStopped(this);
         deliveryStopped.publishAfterCommit();
     }
@@ -50,26 +50,18 @@ public class Delivery {
     }
 
     public static void deliveryStart(OrderPlaced orderPlaced) {
-        Optional<Delivery> deliveryOptional = repository().findById(orderPlaced.getId());
-        if (deliveryOptional.isPresent()) {
-            Delivery delivery = deliveryOptional.get();
-            delivery.setStatus("shiped");
-            repository().save(delivery);
-        } else {
-            Delivery delivery = new Delivery();
-            delivery.setId(orderPlaced.getId());
-            delivery.setAddress(orderPlaced.getAddress());
-            delivery.setStatus("ready");
-            delivery.setProductId(orderPlaced.getProductId());
-            delivery.setProductName(orderPlaced.getProductName());
-            delivery.setQty(orderPlaced.getQty());
-            delivery.setOrderId(orderPlaced.getId());
-            repository().save(delivery);
-        }
+        Delivery delivery = new Delivery();
+        delivery.setAddress(orderPlaced.getAddress());
+        delivery.setStatus("ready");
+        delivery.setProductId(orderPlaced.getProductId());
+        delivery.setProductName(orderPlaced.getProductName());
+        delivery.setQty(orderPlaced.getQty());
+        delivery.setOrderId(orderPlaced.getId());
+        repository().save(delivery);
     }
 
     public static void deliveryStop(OrderCanceled orderCanceled) {
-        Optional<Delivery> deliveryOptional = repository().findById(orderCanceled.getId());
+        Optional<Delivery> deliveryOptional = repository().findByOrderId(orderCanceled.getId());
         if (deliveryOptional.isPresent()) {
             Delivery delivery = deliveryOptional.get();
             delivery.setStatus("retrieve");

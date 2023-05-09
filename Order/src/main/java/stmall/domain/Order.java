@@ -19,11 +19,15 @@ public class Order {
 
     private String userId;
 
-    private Integer productId;
+    private Long productId;
+
+    private String productName;
 
     private Integer qty;
 
     private String address;
+
+    private String status;
 
     @PostPersist
     public void onPostPersist() {
@@ -31,8 +35,8 @@ public class Order {
         orderPlaced.publishAfterCommit();
     }
 
-    @PreUpdate
-    public void onPreUpdate() {
+    @PostUpdate
+    public void onPostUpdate() {
         OrderCanceled orderCanceled = new OrderCanceled(this);
         orderCanceled.publishAfterCommit();
     }
@@ -69,44 +73,18 @@ public class Order {
     public static void notificationOrderStatusUpdate(
         DeliveryStarted deliveryStarted
     ) {
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStarted.get???()).ifPresent(order->{
-            
-            order // do something
+        repository().findById(deliveryStarted.getOrderId()).ifPresent(order->{
+            order.setStatus(deliveryStarted.getStatus());
             repository().save(order);
-
-
          });
-        */
-
     }
 
     public static void notificationOrderStatusUpdate(
         DeliveryStopped deliveryStopped
     ) {
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStopped.get???()).ifPresent(order->{
-            
-            order // do something
+        repository().findById(deliveryStopped.getOrderId()).ifPresent(order->{
+            order.setStatus(deliveryStopped.getStatus());
             repository().save(order);
-
-
-         });
-        */
-
+        });
     }
 }

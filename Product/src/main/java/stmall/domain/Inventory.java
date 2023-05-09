@@ -25,10 +25,7 @@ public class Inventory {
     public void onPostPersist() {
         StockDecreased stockDecreased = new StockDecreased(this);
         stockDecreased.publishAfterCommit();
-    }
 
-    @PreUpdate
-    public void onPreUpdate() {
         StockIncreased stockIncreased = new StockIncreased(this);
         stockIncreased.publishAfterCommit();
     }
